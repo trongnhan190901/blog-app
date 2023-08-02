@@ -1,7 +1,7 @@
-import Navbar from '../components/partials/Navbar';
-import Banner from '../pages/homePage/Banner';
-import Featured from '../pages/homePage/Featured';
-import BlogList from '../pages/homePage/BlogList';
+import Navbar from '~/components/partials/Navbar';
+import Banner from '~/components/homePage/Banner';
+import Featured from '~/components/homePage/Featured';
+import BlogList from '~/components/homePage/BlogList';
 
 export default function Home() {
     return (

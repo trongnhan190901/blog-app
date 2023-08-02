@@ -1,28 +1,34 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-
 const User = require('../models/User');
 
 passport.use(
     new GoogleStrategy(
         {
             clientID:
-                '853948015854-jg6ikhve7570cjps5f81bupd7e6nup6p.apps.googleusercontent.com',
-            clientSecret: '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',
+                '158973631788-kj3jm25t9s244vis5l2ergo8qmkjco5v.apps.googleusercontent.com',
+            clientSecret: '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',
             callbackURL: 'http://localhost:5000/auth/google/callback',
         },
         async (accessToken, refreshToken, profile, done) => {
-            const user = await User.findOne({ googleId: profile.id });
-            if (!user) {
-                const newUser = new User({
-                    googleId: profile.id,
-                    displayName: profile.displayName,
-                    email: profile.emails[0].value,
-                });
-                await newUser.save();
-                done(null, newUser);
-            } else {
-                done(null, user);
+            try {
+                let user = await User.findOne({ googleId: profile.id });
+
+                if (!user) {
+                    // Nếu không tìm thấy user, tạo user mới và lưu vào database
+                    user = new User({
+                        googleId: profile.id,
+                        name: profile.displayName,
+                        email: profile.emails[0].value,
+                        role: 'user',
+                        avatar: profile.photos[0].value,
+                    });
+                    await user.save();
+                }
+                // Trả về thông tin user
+                return done(null, user);
+            } catch (err) {
+                return done(err, null);
             }
         },
     ),
@@ -40,3 +46,5 @@ passport.deserializeUser(async (id, done) => {
         done(err, null);
     }
 });
+
+module.exports = passport;

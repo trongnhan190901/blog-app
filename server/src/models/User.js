@@ -4,7 +4,8 @@ const userSchema = new mongoose.Schema({
     googleId: { type: String, required: true },
     name: { type: String, required: true },
     email: { type: String, required: true },
-    role: { type: String, required: true }, // Thêm trường role vào mô hình User
+    avatar: { type: String },
+    role: { type: String, required: true, default: 'user' }, // Thêm trường role với giá trị mặc định là 'user'
 });
 
 const User = mongoose.model('User', userSchema);

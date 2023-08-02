@@ -1,20 +1,17 @@
 const express = require('express');
 const passport = require('passport');
+const authController = require('../controllers/authController');
 
 const router = express.Router();
 
-router.get(
-    '/google',
-    passport.authenticate('google', { scope: ['profile', 'email'] }),
-);
+router.get('/google', authController.googleLogin);
 
 router.get(
     '/google/callback',
-    passport.authenticate('google', { failureRedirect: '/' }),
-    (req, res) => {
-        // Redirect to the frontend URL after successful login
-        res.redirect('http://localhost:3000');
-    },
+    authController.googleCallback,
+    authController.googleSuccess,
 );
+
+router.get('/logout', authController.logout);
 
 module.exports = router;

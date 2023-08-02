@@ -16,7 +16,31 @@
     }
 }
 
-:root {
+@layer base {
+    h2 {
+        @apply text-2xl font-bold font-serif;
+    }
+    h3 {
+        @apply text-xl font-semibold font-serif;
+    }
+}
+
+.ce-paragraph {
+    font-size: 20px;
+    line-height: 1.5;
+    font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+    /* Các thuộc tính CSS khác */
+}
+
+.ce-inline-tool {
+    padding: 0 8px;
+}
+
+.ce-block__content,
+.ce-toolbar__content {
+    max-width: unset !important;
+}
+/* :root {
     --foreground-rgb: 0, 0, 0;
     --background-start-rgb: 214, 219, 220;
     --background-end-rgb: 255, 255, 255;
@@ -38,4 +62,4 @@ body {
             rgb(var(--background-end-rgb))
         )
         rgb(var(--background-start-rgb));
-}
+} */

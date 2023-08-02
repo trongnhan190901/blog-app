@@ -1,31 +1,53 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import UserProfile from './UserProfile';
+import { useAtom } from 'jotai';
+import { userId } from '~/atoms/globalState';
 
 const LoginButton = () => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useAtom(userId);
 
     useEffect(() => {
-        // Kiểm tra xem người dùng đã đăng nhập hay chưa bằng cách gọi API để lấy thông tin người dùng
-        axios.get('/api/user').then((response) => {
-            setUser(response.data);
-        });
+        fetch('http://localhost:5000/api/user', {
+            method: 'GET',
+            credentials: 'include', // Bật tùy chọn để gửi cookie trong yêu cầu
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                // Nếu yêu cầu thành công, lưu thông tin người dùng vào state
+                setUser(data);
+            })
+            .catch((error) => {
+                // Xử lý lỗi nếu có
+                console.error('Error fetching user data:', error);
+            });
     }, []);
 
     const handleLogin = () => {
-        // Chuyển hướng đến trang đăng nhập của Google khi nhấp vào nút
         window.location.href = 'http://localhost:5000/auth/google';
     };
 
     const handleLogout = () => {
-        // Xử lý đăng xuất bằng cách gọi API hoặc làm những việc khác nếu cần
-        setUser(null);
+        fetch('http://localhost:5000/auth/logout', {
+            method: 'GET',
+            credentials: 'include',
+        })
+            .then(() => {
+                setUser(null);
+            })
+            .catch((error) => {
+                console.error('Error logging out:', error);
+            });
     };
 
     return user ? (
-        <UserProfile user={user} handleLogout={handleLogout} />
+        <UserProfile user={user} />
     ) : (
-        <button onClick={handleLogin}>Đăng nhập bằng Google</button>
+        <button onClick={handleLogin}>Login</button>
     );
 };
 
