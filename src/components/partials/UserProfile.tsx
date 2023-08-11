@@ -1,16 +1,18 @@
-import React from 'react';
 import { Menu } from '@headlessui/react';
+import Link from 'next/link';
 
 interface User {
+    _id: string;
     name: string;
     avatar: string;
 }
 
 interface UserProfileProps {
     user: User;
+    handleLogout: () => void;
 }
 
-const UserProfile = ({ user }: UserProfileProps) => {
+const UserProfile = ({ user, handleLogout }: UserProfileProps) => {
     return (
         <>
             <Menu as='div' className='relative inline-block text-left'>
@@ -29,8 +31,8 @@ const UserProfile = ({ user }: UserProfileProps) => {
                 >
                     <Menu.Item as='li'>
                         {({ active }) => (
-                            <a
-                                href='#'
+                            <Link
+                                href={`/user/${user._id}`}
                                 className={`${
                                     active
                                         ? 'bg-gray-100 text-gray-900'
@@ -38,13 +40,13 @@ const UserProfile = ({ user }: UserProfileProps) => {
                                 } block px-4 py-2 text-sm transition duration-300 ease-in-out hover:bg-gray-100`}
                             >
                                 Edit Profile
-                            </a>
+                            </Link>
                         )}
                     </Menu.Item>
                     <Menu.Item as='li'>
                         {({ active }) => (
-                            <a
-                                href='#'
+                            <button
+                                onClick={handleLogout}
                                 className={`${
                                     active
                                         ? 'bg-gray-100 text-gray-900'
@@ -52,7 +54,7 @@ const UserProfile = ({ user }: UserProfileProps) => {
                                 } block px-4 py-2 text-sm transition duration-300 ease-in-out hover:bg-gray-100`}
                             >
                                 Sign Out
-                            </a>
+                            </button>
                         )}
                     </Menu.Item>
                 </Menu.Items>

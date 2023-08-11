@@ -1,6 +1,6 @@
 //./components/Editor
-import React, { memo, useEffect, useRef } from 'react';
 import EditorJS, { OutputData } from '@editorjs/editorjs';
+import { memo, useEffect, useRef } from 'react';
 import { EDITOR_TOOLS } from './EditorTools';
 
 //props

@@ -1,13 +1,6 @@
-import { BlockToolData, OutputBlockData, OutputData } from '@editorjs/editorjs';
-import React from 'react';
-import CodeRenderer from './CodeRenderer';
-const editorJsHtml = require('editorjs-html');
-const EditorJsToHtml = editorJsHtml({
-    code: (block: OutputBlockData<string>) => {
-        console.log(block);
-        return <CodeRenderer code={block.data.code} />;
-    },
-});
+import { OutputData } from '@editorjs/editorjs';
+import editorJsHtml from 'editorjs-html';
+const EditorJsToHtml = editorJsHtml();
 
 type Props = {
     data: OutputData;
@@ -16,19 +9,24 @@ type ParsedContent = string | JSX.Element;
 
 const EditorJsRenderer = ({ data }: Props) => {
     const html = EditorJsToHtml.parse(data) as ParsedContent[];
+
+    console.log(data);
+
     return (
         <div className='prose max-w-full '>
-            {html.map((item, index) => {
-                if (typeof item === 'string') {
-                    return (
-                        <div
-                            dangerouslySetInnerHTML={{ __html: item }}
-                            key={index}
-                        ></div>
-                    );
-                }
-                return item;
-            })}
+            {html &&
+                html.map((item, index) => {
+                    if (typeof item === 'string') {
+                        return (
+                            <div
+                                dangerouslySetInnerHTML={{ __html: item }}
+                                key={index}
+                                className='my-5'
+                            ></div>
+                        );
+                    }
+                    return item;
+                })}
         </div>
     );
 };

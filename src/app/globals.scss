@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Playfair+Display:wght@400;500;700;800;900&family=Raleway:wght@400;500;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .smooth-effect {
+        @apply transition-all duration-300;
+    }
+    .absolute-center {
+        @apply flex items-center justify-center;
+    }
+    .full-size {
+        @apply h-full w-full;
+    }
+}
+
+@layer base {
+    h2 {
+        @apply text-3xl font-bold font-serif leading-loose;
+    }
+    h3 {
+        @apply text-2xl font-semibold font-serif leading-loose;
+    }
+    p {
+        @apply text-xl font-serif leading-[2.3];
+    }
+}
+
+.ce-paragraph {
+    margin: 8px 0;
+    font-size: 20px !important;
+    line-height: 2.5 !important;
+    font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+}
+
+.ce-inline-tool {
+    padding: 0 8px;
+}
+
+.ce-block__content,
+.ce-toolbar__content {
+    max-width: unset !important;
+}
+
+.ce-toolbar__actions {
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+/* :root {
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --foreground-rgb: 255, 255, 255;
+        --background-start-rgb: 0, 0, 0;
+        --background-end-rgb: 0, 0, 0;
+    }
+}
+
+body {
+    color: rgb(var(--foreground-rgb));
+    background: linear-gradient(
+            to bottom,
+            transparent,
+            rgb(var(--background-end-rgb))
+        )
+        rgb(var(--background-start-rgb));
+} */
+
+.heading2 {
+    margin-left: 0; /* Đặt margin-left cho h2 */
+}
+
+.heading3 {
+    margin-left: 20px; /* Đặt margin-left cho h3 */
+}
+
+.pagination {
+    display: flex;
+    align-items: flex-start;
+    height: 100%;
+    font-size: 17px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.5rem;
+    margin-bottom: 0.8rem;
+    font-weight: 500;
+}
+
+.pagination:focus {
+    outline: none;
+}
+
+.previous_page,
+.next_page {
+    margin: 0 1rem;
+    cursor: pointer;
+}
+
+.pagination_disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pagination_active {
+    background-color: #ff7506;
+    border-radius: 5px;
+    color: #fff;
+    padding: 0.8rem 1rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    color: black;
+}
+
+.swiper-pagination-bullet {
+    background-color: black;
+    width: 9px;
+    height: 9px;
+    opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: black;
+    opacity: 1;
+    width: 9px;
+    height: 9px;
+}

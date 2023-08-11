@@ -1,12 +1,12 @@
 import Header from '@editorjs/header';
-import Paragraph from '@editorjs/paragraph';
-import Marker from '@editorjs/marker';
+import ImageTool from '@editorjs/image';
 import InlineCode from '@editorjs/inline-code';
 import LinkTool from '@editorjs/link';
-import Quote from '@editorjs/quote';
-import ImageTool from '@editorjs/image';
-import SimpleImage from '@editorjs/simple-image';
 import List from '@editorjs/list';
+import Marker from '@editorjs/marker';
+import Paragraph from '@editorjs/paragraph';
+import Quote from '@editorjs/quote';
+import SimpleImage from '@editorjs/simple-image';
 
 export const EDITOR_TOOLS = {
     header: {
@@ -22,6 +22,7 @@ export const EDITOR_TOOLS = {
         class: Paragraph,
         inlineToolbar: true,
         config: {
+            tagName: 'p',
             inlineToolbar: ['link', 'bold', 'italic', 'marker'],
         },
     },

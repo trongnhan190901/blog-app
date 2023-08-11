@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import UserProfile from './UserProfile';
 import { useAtom } from 'jotai';
+import { useEffect } from 'react';
 import { userId } from '~/atoms/globalState';
+import UserProfile from './UserProfile';
 
 const LoginButton = () => {
     const [user, setUser] = useAtom(userId);
@@ -45,7 +45,7 @@ const LoginButton = () => {
     };
 
     return user ? (
-        <UserProfile user={user} />
+        <UserProfile user={user} handleLogout={handleLogout} />
     ) : (
         <button onClick={handleLogin}>Login</button>
     );
