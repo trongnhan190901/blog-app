@@ -1,9 +1,10 @@
 'use client';
+
 import { OutputData } from '@editorjs/editorjs';
 import { useAtom } from 'jotai';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
-import { userId } from '~/atoms/globalState';
+import { userId } from '~/atoms/GlobalState';
 import PreviewModal from '~/components/modal/PreviewModal';
 
 const EditorBlock = dynamic(() => import('~/components/partials/Editor'), {
@@ -13,8 +14,8 @@ const EditorBlock = dynamic(() => import('~/components/partials/Editor'), {
 const Page = () => {
     const [user] = useAtom(userId);
 
-    const [title, setTitle] = useState('');
-    const [desc, setDesc] = useState('');
+    const [title, setTitle] = useState<string>('');
+    const [desc, setDesc] = useState<string>('');
     const [content, setContent] = useState<OutputData>();
     const [isTitleEmpty, setIsTitleEmpty] = useState(false);
 
@@ -32,7 +33,7 @@ const Page = () => {
                 },
                 body: JSON.stringify({
                     title,
-                    desc,
+                    desc: desc || null,
                     content,
                     author: user,
                 }),

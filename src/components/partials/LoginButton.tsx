@@ -1,6 +1,7 @@
 import { useAtom } from 'jotai';
 import { useEffect } from 'react';
-import { userId } from '~/atoms/globalState';
+import { userId } from '~/atoms/GlobalState';
+import LoginModal from '../modal/LoginModal';
 import UserProfile from './UserProfile';
 
 const LoginButton = () => {
@@ -27,17 +28,17 @@ const LoginButton = () => {
             });
     }, []);
 
-    const handleLogin = () => {
-        window.location.href = 'http://localhost:5000/auth/google';
-    };
-
     const handleLogout = () => {
         fetch('http://localhost:5000/auth/logout', {
             method: 'GET',
             credentials: 'include',
         })
-            .then(() => {
-                setUser(null);
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.success) {
+                    setUser(null);
+                    window.location.reload(); // Refresh trang sau khi logout
+                }
             })
             .catch((error) => {
                 console.error('Error logging out:', error);
@@ -47,7 +48,7 @@ const LoginButton = () => {
     return user ? (
         <UserProfile user={user} handleLogout={handleLogout} />
     ) : (
-        <button onClick={handleLogin}>Login</button>
+        <LoginModal />
     );
 };
 

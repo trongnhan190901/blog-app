@@ -1,52 +1,66 @@
 import { OutputData } from '@editorjs/editorjs';
 import { Dialog, Listbox, Transition } from '@headlessui/react';
-import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { Fragment, useState } from 'react';
+import { convertParamToCategory } from '~/helper/ConvertCategory';
+import { User } from '~/type';
 
 interface PreviewModalProps {
     title: string;
     desc: string | null;
     content: OutputData | undefined;
-    user: string | null;
+    user: User | null;
 }
 
 const categories = [
-    'Khoa học - Công nghệ',
-    'Sức khỏe - Sắc đẹp',
-    'Du lịch - Ẩm thực',
-    'Nghệ thuật - Văn hóa',
-    'Phát triển cá nhân',
-    'Tin tức xã hội',
-    'Tâm lý - Sức khỏe tinh thần',
-    'Lối sống - Gia đình',
-    'Kinh doanh - Tài chính',
-    'Giáo dục - Học tập',
-    'Thời trang - Phong cách',
-    'Hài hước - Giải trí',
+    'khoa-hoc-cong-nghe',
+    'suc-khoe-sac-dep',
+    'du-lich-am-thuc',
+    'nghe-thuat-van-hoa',
+    'phat-trien-ca-nhan',
+    'tin-tuc-xa-hoi',
+    'tam-ly-suc-khoe-tinh-than',
+    'loi-song-gia-dinh',
+    'kinh-doanh-tai-chinh',
+    'giao-duc-hoc-tap',
+    'thoi-trang-phong-cach',
+    'hai-huoc-giai-tri',
 ];
 
 const PreviewModal = ({ title, desc, content, user }: PreviewModalProps) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [category, setCategory] = useState('');
-
+    const [category, setCategory] = useState<string>('');
     const router = useRouter();
 
     const handleSubmit = async () => {
         try {
-            const response = await axios.post(
+            const response = await fetch(
                 'http://localhost:5000/api/blog/submit',
                 {
-                    title,
-                    desc,
-                    category,
-                    content,
-                    author: user,
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        title,
+                        desc: desc || null,
+                        category,
+                        content,
+                        author: user,
+                    }),
                 },
             );
-            const newBlogId = response.data.id;
 
-            router.push(`/blog/${newBlogId}`);
+            if (response.ok) {
+                const data = await response.json();
+
+                const newBlogSlug = data.slug;
+                console.log(newBlogSlug);
+
+                router.push(`/blog/${newBlogSlug}`);
+            } else {
+                console.error('Error submitting blog');
+            }
         } catch (error) {
             console.error(error);
         }
@@ -96,7 +110,8 @@ const PreviewModal = ({ title, desc, content, user }: PreviewModalProps) => {
                                     </Listbox.Label>
                                     <div className='relative'>
                                         <Listbox.Button className='w-[300px] text-lg py-2 pl-3 pr-10 text-left border rounded-lg shadow-sm focus:ring focus:ring-opacity-50 font-semibold focus:ring-blue-300 focus:outline-none'>
-                                            {category || 'Chọn một danh mục'}
+                                            {convertParamToCategory(category) ||
+                                                'Chọn một danh mục'}
                                         </Listbox.Button>
                                         <Listbox.Options className='absolute w-full h-96 overflow-y-auto mt-2 space-y-1 bg-white border rounded-lg shadow-lg focus:ring focus:ring-opacity-50 focus:ring-blue-300'>
                                             {categories.map((category) => (
@@ -127,7 +142,9 @@ const PreviewModal = ({ title, desc, content, user }: PreviewModalProps) => {
                                                                         : 'font-normal'
                                                                 } block truncate`}
                                                             >
-                                                                {category}
+                                                                {convertParamToCategory(
+                                                                    category,
+                                                                )}
                                                             </span>
                                                             {selected && (
                                                                 <span

@@ -1,7 +1,7 @@
 const BlogPage = () => {
     return (
         <>
-            <div className='w-screen h-screen bg-rose-200'></div>
+            <div className='w-screen min-h-screen bg-rose-200'></div>
         </>
     );
 };

@@ -1,11 +1,6 @@
 import { Menu } from '@headlessui/react';
 import Link from 'next/link';
-
-interface User {
-    _id: string;
-    name: string;
-    avatar: string;
-}
+import { User } from '~/type';
 
 interface UserProfileProps {
     user: User;
@@ -21,18 +16,18 @@ const UserProfile = ({ user, handleLogout }: UserProfileProps) => {
                         <img
                             src={user.avatar}
                             alt=''
-                            className='w-14 h-14 rounded-full cursor-pointer transition duration-300 ease-in-out transform hover:scale-110'
+                            className='w-14 h-14 rounded-full cursor-pointer'
                         />
                     </Menu.Button>
                 </div>
                 <Menu.Items
-                    className='origin-top-right absolute z-20 right-0 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'
+                    className='origin-top-right absolute z-20 right-0 mt-2 w-40 rounded-md shadow-lg bg-white ring-black ring-opacity-5 focus:outline-none'
                     as='ul'
                 >
                     <Menu.Item as='li'>
                         {({ active }) => (
                             <Link
-                                href={`/user/${user._id}`}
+                                href={`/user/${user.googleId}`}
                                 className={`${
                                     active
                                         ? 'bg-gray-100 text-gray-900'
