@@ -14,19 +14,12 @@ const EditorJsRenderer = ({ data }: Props) => {
 
     return (
         <div className='prose max-w-full '>
-            {html &&
-                html.map((item, index) => {
-                    if (typeof item === 'string') {
-                        return (
-                            <div
-                                dangerouslySetInnerHTML={{ __html: item }}
-                                key={index}
-                                className='my-5'
-                            ></div>
-                        );
-                    }
-                    return item;
-                })}
+            {html && (
+                <div
+                    dangerouslySetInnerHTML={{ __html: html }}
+                    className='my-5'
+                ></div>
+            )}
         </div>
     );
 };

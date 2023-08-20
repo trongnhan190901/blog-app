@@ -4,6 +4,7 @@ import { OutputData } from '@editorjs/editorjs';
 import { useAtom } from 'jotai';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 import { userId } from '~/atoms/GlobalState';
 import PreviewModal from '~/components/modal/PreviewModal';
 
@@ -38,7 +39,9 @@ const Page = () => {
                     author: user,
                 }),
             });
+            toast.success('Lưu nháp thành công');
         } catch (error) {
+            toast.error('Lưu nháp thất bại');
             console.error(error);
         }
     };

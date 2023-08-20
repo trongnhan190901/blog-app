@@ -2,6 +2,7 @@ import { OutputData } from '@editorjs/editorjs';
 import { Dialog, Listbox, Transition } from '@headlessui/react';
 import { useRouter } from 'next/navigation';
 import { Fragment, useState } from 'react';
+import { toast } from 'react-toastify';
 import { convertParamToCategory } from '~/helper/ConvertCategory';
 import { User } from '~/type';
 
@@ -53,12 +54,12 @@ const PreviewModal = ({ title, desc, content, user }: PreviewModalProps) => {
 
             if (response.ok) {
                 const data = await response.json();
-
                 const newBlogSlug = data.slug;
-                console.log(newBlogSlug);
 
+                toast.success('Đăng bài thành công, chờ duyệt');
                 router.push(`/blog/${newBlogSlug}`);
             } else {
+                toast.error('Đăng bài thất bại');
                 console.error('Error submitting blog');
             }
         } catch (error) {

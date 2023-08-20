@@ -1,18 +1,10 @@
 'use client';
-import { OutputData } from '@editorjs/editorjs';
 import { useEffect, useState } from 'react';
 import EditorJsRenderer from '~/components/partials/EditorRender';
-
-interface BlogData {
-    title: string;
-    desc: string | null;
-    content: OutputData;
-    createdAt: string;
-    category: string;
-}
+import { Blog } from '~/type';
 
 const BlogPost = ({ params }: { params: { slug: string } }) => {
-    const [blogData, setBlogData] = useState<BlogData | null>(null);
+    const [blogData, setBlogData] = useState<Blog | null>(null);
 
     useEffect(() => {
         fetch(`http://localhost:5000/api/blog/${params.slug}`, {

@@ -1,9 +1,11 @@
 'use client';
 
+import { EyeIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { convertParamToCategory } from '~/helper/ConvertCategory';
 import { formatDate } from '~/helper/FormatDate';
+import { formatNumber } from '~/helper/FormatNumber';
 import { Blog } from '~/type';
 
 interface BlogItemProp {
@@ -66,8 +68,20 @@ const VerticalBlogItem = ({ blog, hideAuthor }: BlogItemProp) => {
                     </div>
                 )}
                 {hideAuthor && (
-                    <div className='font-primary text-base'>
-                        {formatDate(blog.createdAt)}
+                    <div className='flex w-[300px] h-6'>
+                        <div className='font-primary text-base'>
+                            {formatDate(blog.createdAt)}
+                        </div>
+                        <div className='flex flex-grow'></div>
+                        <Link
+                            href={`/blog/${blog.slug}`}
+                            className='items-center flex'
+                        >
+                            <EyeIcon className='w-6 h-6 mr-2' />
+                            <p className='font-primary text-base'>
+                                {formatNumber(blog.views)}
+                            </p>
+                        </Link>
                     </div>
                 )}
             </div>

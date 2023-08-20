@@ -9,7 +9,7 @@ export interface Blog {
     slug: string;
     title: string;
     desc: string;
-    content: OutputData[];
+    content: OutputData;
     author: User;
     category: string;
     approved: boolean;
@@ -20,7 +20,11 @@ export interface Blog {
     userHasSaved: boolean;
 }
 
-export interface Data {
-    user: User;
-    blogs: Blog[];
+export interface Draft {
+    _id: string;
+    title: string;
+    desc: string;
+    content: OutputData;
+    author: User;
+    createdAt: string;
 }

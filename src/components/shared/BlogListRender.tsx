@@ -24,7 +24,7 @@ const BlogListRender = ({ blogs, hideAuthor }: BlogListRenderProps) => {
 
     return (
         <>
-            <div className='w-full flex flex-wrap absolute-center'>
+            <div className='w-full mt-12 flex flex-wrap absolute-center'>
                 {blogs &&
                     blogs
                         .slice(pagesVisited, pagesVisited + blogsPerPage)

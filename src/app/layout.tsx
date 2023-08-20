@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Footer from '~/components/partials/Footer';
 import Navbar from '~/components/partials/Navbar';
 import './globals.scss';
@@ -22,8 +24,19 @@ export default function RootLayout({
                 <div className='hidden xl:flex'>
                     <Navbar />
                 </div>
+                <ToastContainer
+                    position='top-center'
+                    autoClose={3000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme='light'
+                />
                 {children}
-
                 <Footer />
             </body>
         </html>
