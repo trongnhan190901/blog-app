@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import LoginButton from './LoginButton';
+import Search from './Seach';
 
 const Navbar = () => {
     return (
@@ -102,6 +103,8 @@ const Navbar = () => {
                             </div>
                         </li>
                     </ul>
+                    <Search />
+
                     {/* <div className='cursor-pointer'>Contact</div>
                     <div className='cursor-pointer'>Contact</div>
                     <div className='cursor-pointer'>Contact</div> */}

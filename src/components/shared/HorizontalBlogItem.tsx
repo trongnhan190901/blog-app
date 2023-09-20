@@ -28,8 +28,6 @@ const HorizontalBlogItem = ({
     const [like, setLike] = useState<boolean>(blog.userHasLiked);
     const [save, setSave] = useState<boolean>(blog.userHasSaved);
 
-    console.log(save);
-
     const handleLike = async () => {
         try {
             const response = await fetch(
@@ -48,16 +46,19 @@ const HorizontalBlogItem = ({
                 throw new Error('Error liking post');
             }
 
-            setLike(!like);
+            // Đảm bảo cập nhật giá trị mới của 'like'
+            const newLikeValue = !like;
+            setLike(newLikeValue);
 
-            if (!like) {
-                likesCountMap[blog.slug] = (likesCountMap[blog.slug] || 0) + 1;
-            } else {
-                likesCountMap[blog.slug] = (likesCountMap[blog.slug] || 0) - 1;
-            }
+            // Cập nhật 'likesCountMap' dựa trên giá trị mới của 'like'
+            likesCountMap[blog.slug] = newLikeValue
+                ? (likesCountMap[blog.slug] || 0) + 1
+                : (likesCountMap[blog.slug] || 0) - 1;
         } catch (error) {
             console.error('Error liking post:', error);
         }
+
+        console.log(likesCountMap);
     };
 
     const handleSave = async () => {
@@ -141,12 +142,14 @@ const HorizontalBlogItem = ({
                         alt=''
                         className='w-12 h-12 cursor-pointer rounded-full'
                     />
-                    <Link
-                        href={`/user/${blog.author.googleId}`}
+                    <div
+                        onClick={() =>
+                            router.push(`/user/${blog.author.googleId}`)
+                        }
                         className='font-bold cursor-pointer text-base'
                     >
                         {blog?.author?.name}
-                    </Link>
+                    </div>
                     <div className='font-primary text-base pl-4'>
                         {formatDate(blog.createdAt)}
                     </div>

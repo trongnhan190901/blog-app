@@ -55,12 +55,14 @@ const VerticalBlogItem = ({ blog, hideAuthor }: BlogItemProp) => {
                             className='w-10 h-10 cursor-pointer rounded-full'
                         />
                         <div className='flex flex-col'>
-                            <Link
-                                href={`/user/${blog.author.googleId}`}
+                            <div
+                                onClick={() =>
+                                    router.push(`/user/${blog.author.googleId}`)
+                                }
                                 className='font-bold cursor-pointer text-base'
                             >
                                 {blog?.author?.name}
-                            </Link>
+                            </div>
                             <div className='font-primary text-base'>
                                 {formatDate(blog.createdAt)}
                             </div>

@@ -16,6 +16,7 @@ export interface Blog {
     createdAt: string;
     views: number;
     likes: string[];
+    commnets: CommentType[];
     userHasLiked: boolean;
     userHasSaved: boolean;
 }
@@ -27,4 +28,11 @@ export interface Draft {
     content: OutputData;
     author: User;
     createdAt: string;
+}
+
+export interface Comment {
+    _id: string;
+    content: string;
+    author: User;
+    replies: Comment[];
 }

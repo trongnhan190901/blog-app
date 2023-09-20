@@ -10,16 +10,21 @@ type ParsedContent = string | JSX.Element;
 const EditorJsRenderer = ({ data }: Props) => {
     const html = EditorJsToHtml.parse(data) as ParsedContent[];
 
-    console.log(data);
-
     return (
         <div className='prose max-w-full '>
-            {html && (
-                <div
-                    dangerouslySetInnerHTML={{ __html: html }}
-                    className='my-5'
-                ></div>
-            )}
+            {html &&
+                html.map((item, index) => {
+                    if (typeof item === 'string') {
+                        return (
+                            <div
+                                dangerouslySetInnerHTML={{ __html: item }}
+                                key={index}
+                                className='my-5'
+                            ></div>
+                        );
+                    }
+                    return item;
+                })}
         </div>
     );
 };
